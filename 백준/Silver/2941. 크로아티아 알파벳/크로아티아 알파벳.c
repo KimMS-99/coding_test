@@ -1,76 +1,37 @@
 #include<stdio.h>
+#include <string.h>
 
+// 정답은 이미 맞았었지만 2차원 배열에 이해를 위해서 연습
 int main(void)
 {
     
-    char alphabet[100];
-    int count = 0;
+    char alphabet[8][4] = {"c=", "c-", "dz=", "d-", "lj", "nj", "s=", "z="}, input[100];
+    int count = 0, len, c = 0;
     
-    scanf("%s", alphabet);
+    scanf("%s", input);
     
-    for (int i = 0; alphabet[i] != '\0'; i++)
+    for (int i = 0; input[i] != '\0'; i++)
     {
         
-        if (alphabet[i] == 'c')
+        for (int j = 0; j < 8; j++)
         {
             
-            if (alphabet[i + 1] == '-' || alphabet[i + 1] == '=')
-            {
-                
-                i++;
-                count++;
-            }
-            else count++;
-        }
-        
-        else if (alphabet[i] == 'd') // dz=
-        {
+            len = strlen(alphabet[j]);
             
-            if (alphabet[i + 1] == 'z')
+            if(!strncmp(alphabet[j], input + i, len))
             {
                 
-                if (alphabet[i + 2] == '=')
-                {
-                    
-                    i += 2;
-                    count++;
-                }
-                else count++;
-            }
-            else if (alphabet[i + 1] == '-')
-            {
-                
-                i++;
+                i += (len-1);
                 count++;
+                c = 1;
+                break;
             }
-            else count++;
         }
         
-        else if (alphabet[i] == 'l' || alphabet[i] == 'n')
-        {
-            
-            if (alphabet[i + 1] == 'j')
-            {
-             
-                i++;
-                count++;
-            }
-            else count++;
+        if (c == 0) {
+            count++;
         }
-        
-        else if (alphabet[i] == 's' || alphabet[i] == 'z')
-        {
-            
-            if (alphabet[i + 1] == '=')
-            {
-                
-                i++;
-                count++;
-            }
-            else count++;
-        }
-        
-        else count++;
+        else c = 0;
     }
     
     printf("%d\n", count);
